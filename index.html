@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>GAME</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script type="text/javascript" src="../Logic/jquery-1.11.0.min.js"></script>
+     <script src="Phaser/phaser.min.js"></script>
+  <link rel="stylesheet" href="../CSS/style.css" />
+<!--<script type="text/javascript" src="qrcode.js"></script>-->
+<!--QR-->
+<link rel="stylesheet" type="text/css" href="style.css">
+
+  <script type="text/javascript">
+    var webSocket = {};
+    var obj;
+    var element;
+    var cursor = "";
+  </script>
+  <!--<script src="../Phaser/phaser.min.js" charset="utf-8"></script>-->
+ 
+  <script src="../Logic/connect.js"></script>
+</head>
+
+
+
+<body> 
+
+   <div id="input-box" style="display: none">
+<button id="iniciar">Iniciar</button>
+<button id="Password">Password</button>
+
+<input id="text" type="hidden" value=" " style="width:10%" /><br />
+
+
+
+
+ </script>   
+
+<div id="qrcode" style="width:100px; height:100px; margin-top:1px;"></div>
+
+
+  </div>
+
+<!--<input type="text" id="myText"/>-->
+<!--<textarea id="area51">SOME TEXT HERE</textarea>-->
+    <script>
+
+
+var endeffect= 0;
+class SceneA extends Phaser.Scene {
+
+    constructor ()
+    {
+        super('SceneA');
+    }
+
+    preload ()
+    {
+      this.load.image('intro','https://i.ibb.co/y5PwM0n/intro.png');
+       this.load.image('intro2','https://i.ibb.co/CKnwxYy/intro2.png');
+      this.load.image('intro3','https://i.ibb.co/7bx0K1v/intro3.png');
+       this.load.image('intro4','https://i.ibb.co/F4fkzHz/intro4.png');
+      
+      this.load.image('title','https://i.ibb.co/VmtjTxf/title.png');
+     
+        this.load.image('onionk', 'https://i.ibb.co/Dwx9gV0/onionK.png');
+
+    this.load.audio('introtheme', 'https://sndup.net/8dtd/introv2.mp3');
+      
+
+    }
+    create()
+    {
+      this.firstplay = 0;
+      var nextImage = 0;
+        this.introsong = this.sound.add('introtheme', {volume: 0.5});
+      
+       this.knight = this.physics.add.sprite(413 +413/4, 336, 'onionk');
+       this.knight.visible = false;
+var intro = this.physics.add.sprite(1920/2, 1080/2, 'intro');
+  intro.visible = false;
+ var historiaText = this.add.text(203+32, 711+96, "", { fontFamily: '"Arial Black"', fontSize: 50, fill: 'white',});
+
+    this.cameras.main.on('camerafadeoutstart', function () {
+
+
+    });
+
+    this.cameras.main.on('camerafadeoutcomplete', function () {
+
+ if(nextImage ==0)
+       {
+    intro.setTexture('intro2')
+     historiaText.setText("Hasta que aparecio otro brother que, \nempezó a controlar a algunas personas de la ciudad,\nsin dejar rastro alguno.");
+    nextImage = nextImage +1;
+  }
+  else if(nextImage ==1)
+       {
+    intro.setTexture('intro3')
+     historiaText.setText("El brother en su castillo nunca sospecho sobre esto, \nhasta que un día ocurrió algo muy extraño en la ciudad");
+    nextImage = nextImage +1;
+  }
+   else if(nextImage ==2)
+       {
+    intro.setTexture('intro4')
+     historiaText.setText("Una noche, el brother del castillo decide empezar\nsu busqueda hacia el final");
+    nextImage = nextImage +1;
+       
+  }
+  else if(nextImage ==3)
+       {
+    intro.setTexture('title')
+     historiaText.setText("");
+    nextImage = nextImage +1;
+    this.firstplay = -1;
+
+    //  element.style.display = 'block';
+        
+  }
+     endeffect=1;
+    });
+
+    // 
+    this.input.on('pointerdown', function () {
+
+       // var red = Phaser.Math.Between(50, 255);
+       // var green = Phaser.Math.Between(50, 255);
+       // var blue = Phaser.Math.Between(50, 255);
+
+       if(this.firstplay ==0)
+       {
+              intro.visible =true;
+  this.introsong.play();
+     historiaText.setText("Habia una vez un brother que vivía muy tranquilo\n en su castillo, junto con sus guardianes y amigos.");
+
+
+
+
+  this.firstplay = this.firstplay+1;
+  this.cameras.main.fadeIn(2000, 0, 0, 0);
+}
+
+ else if(this.firstplay >=1)
+       {
+            
+
+
+  this.firstplay = this.firstplay+1;
+  this.cameras.main.fadeOut(2000);
+}
+
+
+    }, this);
+
+
+    }
+    update()
+    {
+      if(endeffect==1)
+      {
+        this.cameras.main.fadeIn(2000); 
+        endeffect =0;
+      }
+    }
+   
+  }
+
+
+cursor = "XD";
+
+
+
+
+  var SCREEN_WIDTH = 1920;
+var SCREEN_HEIGHT = 1080;
+var config = {
+    type: Phaser.arcade,
+
+     audio: {
+        disableWebAudio: true
+    },
+  scale: {
+        mode: Phaser.Scale.FIT,
+        parent: 'phaser-example',
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 1920,
+        height: 1080
+    },
+    width: 1920,
+    height: 1080,
+     backgroundColor: '#000000',
+     dom: {
+        createContainer: true
+    },
+     pixelArt: true,
+      fps: {
+        min: 10,
+        target: 60,
+        forceSetTimeOut: false,
+        deltaHistory: 30
+    },
+      scene: [ SceneA],
+   physics: {
+        default: 'arcade',
+        arcade: {
+            debug: false
+        }
+    },
+
+   
+};
+
+var game = new Phaser.Game(config);
+
+    </script>
+
+
+</body>
+
+</html>
