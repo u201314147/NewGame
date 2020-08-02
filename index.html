@@ -50,6 +50,178 @@
 
 
 var endeffect= 0;
+var venega;
+var tactil = 0;
+class SceneB extends Phaser.Scene {
+
+    constructor ()
+    {
+        super('SceneB');
+    }
+     preload ()
+    {
+      this.load.image('venegaDown','https://i.ibb.co/yYwpRwF/venega-Down.png');
+       this.load.image('venegaLeft','https://i.ibb.co/v4F4Dr7/venega-Left.png');
+      this.load.image('venegaRight','https://i.ibb.co/x5S9pNy/venega-Right.png');
+       this.load.image('venegaUp','https://i.ibb.co/FWzsmyV/venegaUp.png');
+      
+    this.load.image('spriteUp','https://i.ibb.co/rbDYTNX/UP.png');
+       this.load.image('spriteDown','https://i.ibb.co/XzBtBHc/DOWN.png');
+      this.load.image('spriteLeft','https://i.ibb.co/yQqpv4r/LEFT.png');
+       this.load.image('spriteRight','https://i.ibb.co/CKqSww8/RIGHT.png');
+      
+
+    }
+     create ()
+    {
+        venega = this.physics.add.sprite(413 +413/4, 336, 'venegaDown');
+        venega.setScale(4.0);
+
+ //venega.scale.setTo(64, 64);
+        var spriteUp = this.physics.add.sprite(1500 +413/4, 336-200, 'spriteUp').setInteractive();;
+         var spriteDown = this.physics.add.sprite(1500 +413/4, 336+200, 'spriteDown').setInteractive();;
+          var spriteLeft = this.physics.add.sprite(1500 +413/4-200, 336, 'spriteRight').setInteractive();;
+           var spriteRight = this.physics.add.sprite(1500 +413/4+200, 336, 'spriteLeft').setInteractive();;
+
+   this.cursors = this.input.keyboard.createCursorKeys();
+
+    spriteUp.on('pointerdown', function (pointer) {
+             venega.setVelocityY(-320);
+            venega.setTexture('venegaUp');
+              tactil = 1;
+    });
+
+      spriteDown.on('pointerdown', function (pointer) {
+    venega.setVelocityY(320);
+            venega.setTexture('venegaDown');
+              tactil = 1;
+    });
+
+        spriteLeft.on('pointerdown', function (pointer) {
+      venega.setVelocityX(-320);
+
+            venega.setTexture('venegaLeft');
+              tactil =1 ;
+    });
+
+          spriteRight.on('pointerdown', function (pointer) {
+     venega.setVelocityX(320);
+            venega.setTexture('venegaRight');
+              tactil =1;
+    });
+
+
+
+
+    spriteUp.on('pointerup', function (pointer) {
+             venega.setVelocityY(0);
+            venega.setTexture('venegaUp');
+              tactil = 1;
+    });
+
+      spriteDown.on('pointerup', function (pointer) {
+    venega.setVelocityY(0);
+            venega.setTexture('venegaDown');
+              tactil = 1;
+    });
+
+        spriteLeft.on('pointerup', function (pointer) {
+      venega.setVelocityX(0);
+
+            venega.setTexture('venegaLeft');
+              tactil =1 ;
+    });
+
+          spriteRight.on('pointerup', function (pointer) {
+     venega.setVelocityX(0);
+            venega.setTexture('venegaRight');
+              tactil =1;
+    });
+
+     /*   function moverarriba()
+        {
+            venega.setVelocityY(-40);
+            venega.setTexture('venegaUp');
+        }
+        function moverabajo()
+        {
+  venega.setVelocityY(40);
+            venega.setTexture('venegaDown');
+        }
+        function moverizquierda()
+        {
+  venega.setVelocityX(-40);
+
+            venega.setTexture('venegaLeft');
+        }
+        function moverderecha()
+        {
+  venega.setVelocityX(40);
+
+            venega.setTexture('venegaRight');
+        }
+        this.input.keyboard.on('keydown_UP', moverarriba, this);
+        this.input.keyboard.on('keydown_DOWN', moverabajo, this);
+
+        this.input.keyboard.on('keydown_LEFT', moverizquierda, this);
+
+        this.input.keyboard.on('keydown_RIGHT', moverderecha, this);
+*/
+
+
+    }
+     update ()
+    {
+
+
+if(tactil != 1)
+{
+    venega.setVelocityX(0);
+      venega.setVelocityY(0);
+}
+
+if (this.cursors.left.isDown) { 
+            venega.setVelocityX(-320);
+                  venega.setTexture('venegaLeft');
+                  tactil = 0;
+        }
+        else{
+              //  venega.setVelocityX(0);
+        }
+
+
+        if (this.cursors.right.isDown) {
+            venega.setVelocityX(320);
+                  venega.setTexture('venegaRight');
+                    tactil = 0;
+        }
+        else{
+         //    venega.setVelocityX(0);
+        }
+
+        if (this.cursors.up.isDown) {
+            venega.setVelocityY(-320);
+              venega.setTexture('venegaUp');
+                tactil = 0;
+        }
+        else
+        {
+        //   venega.setVelocityY(0);
+        }
+
+          if (this.cursors.down.isDown) {
+            venega.setVelocityY(320);
+                        venega.setTexture('venegaDown');
+                          tactil = 0;
+        }
+        else{
+            //   venega.setVelocityY(0);
+        }
+
+    }
+}
+
+ var nextImage = 0;
 class SceneA extends Phaser.Scene {
 
     constructor ()
@@ -59,30 +231,44 @@ class SceneA extends Phaser.Scene {
 
     preload ()
     {
-      this.load.image('intro','https://i.ibb.co/y5PwM0n/intro.png');
-       this.load.image('intro2','https://i.ibb.co/CKnwxYy/intro2.png');
-      this.load.image('intro3','https://i.ibb.co/7bx0K1v/intro3.png');
-       this.load.image('intro4','https://i.ibb.co/F4fkzHz/intro4.png');
+      this.load.image('intro','https://i.ibb.co/4f0xRdV/intro.png');
+       this.load.image('intro2','https://i.ibb.co/HKb9Yz6/intro2.png');
+      this.load.image('intro3','https://i.ibb.co/vdF4YgZ/intro3.png');
+       this.load.image('intro4','https://i.ibb.co/s5XFVLt/intro4-copia.png');
       
       this.load.image('title','https://i.ibb.co/VmtjTxf/title.png');
      
         this.load.image('onionk', 'https://i.ibb.co/Dwx9gV0/onionK.png');
+   this.load.image('start', 'https://i.ibb.co/gjfDtxc/start-Sprite.png');
 
-    this.load.audio('introtheme', 'https://sndup.net/8dtd/introv2.mp3');
+    this.load.audio('introtheme', 'https://sndup.net/93kn/introv1.mp3');
       
 
     }
     create()
     {
       this.firstplay = 0;
-      var nextImage = 0;
+     
         this.introsong = this.sound.add('introtheme', {volume: 0.5});
       
+
        this.knight = this.physics.add.sprite(413 +413/4, 336, 'onionk');
        this.knight.visible = false;
+
 var intro = this.physics.add.sprite(1920/2, 1080/2, 'intro');
   intro.visible = false;
  var historiaText = this.add.text(203+32, 711+96, "", { fontFamily: '"Arial Black"', fontSize: 50, fill: 'white',});
+
+   var start = this.physics.add.sprite(1500 +213/4, 736, 'start');
+      start.setDepth(0);
+       start.visible = false;
+
+
+
+    start.on('pointerup', function (pointer) {
+
+      this.cameras.main.fadeOut(500);
+    });
 
     this.cameras.main.on('camerafadeoutstart', function () {
 
@@ -94,19 +280,19 @@ var intro = this.physics.add.sprite(1920/2, 1080/2, 'intro');
  if(nextImage ==0)
        {
     intro.setTexture('intro2')
-     historiaText.setText("Hasta que aparecio otro brother que, \nempezó a controlar a algunas personas de la ciudad,\nsin dejar rastro alguno.");
+     historiaText.setText("Hasta que un día aparecio un Brother que, \nempezó a controlar a las personas de la ciudad,\nsin que nadie se de cuenta.");
     nextImage = nextImage +1;
   }
   else if(nextImage ==1)
        {
     intro.setTexture('intro3')
-     historiaText.setText("El brother en su castillo nunca sospecho sobre esto, \nhasta que un día ocurrió algo muy extraño en la ciudad");
+     historiaText.setText("Venega no se dio cuenta de esto hasta\nque su hermana Teneca es controlada\ny atrapada por el Brother");
     nextImage = nextImage +1;
   }
    else if(nextImage ==2)
        {
     intro.setTexture('intro4')
-     historiaText.setText("Una noche, el brother del castillo decide empezar\nsu busqueda hacia el final");
+     historiaText.setText("Una noche, Venega decide salir del castillo y empezar\nsu busqueda hacia el Brother");
     nextImage = nextImage +1;
        
   }
@@ -116,8 +302,13 @@ var intro = this.physics.add.sprite(1920/2, 1080/2, 'intro');
      historiaText.setText("");
     nextImage = nextImage +1;
     this.firstplay = -1;
-
-    //  element.style.display = 'block';
+    start.visible = true;
+    
+        
+  }
+   else if(nextImage ==4)
+       {
+    nextImage = nextImage +1;
         
   }
      endeffect=1;
@@ -134,13 +325,13 @@ var intro = this.physics.add.sprite(1920/2, 1080/2, 'intro');
        {
               intro.visible =true;
   this.introsong.play();
-     historiaText.setText("Habia una vez un brother que vivía muy tranquilo\n en su castillo, junto con sus guardianes y amigos.");
+     historiaText.setText("Habia una vez una maga llamada Venega, \nque vivía muy tranquila con su hermana Teneca\n en su castillo, junto con sus guardianes y amigos.");
 
 
 
 
   this.firstplay = this.firstplay+1;
-  this.cameras.main.fadeIn(2000, 0, 0, 0);
+  this.cameras.main.fadeIn(500, 0, 0, 0);
 }
 
  else if(this.firstplay >=1)
@@ -149,7 +340,7 @@ var intro = this.physics.add.sprite(1920/2, 1080/2, 'intro');
 
 
   this.firstplay = this.firstplay+1;
-  this.cameras.main.fadeOut(2000);
+  this.cameras.main.fadeOut(500);
 }
 
 
@@ -161,9 +352,14 @@ var intro = this.physics.add.sprite(1920/2, 1080/2, 'intro');
     {
       if(endeffect==1)
       {
-        this.cameras.main.fadeIn(2000); 
+        this.cameras.main.fadeIn(500); 
         endeffect =0;
       }
+    if(nextImage ==5)
+    {
+      this.scene.start('SceneB');
+        this.game.sound.stopAll();
+    }
     }
    
   }
@@ -202,7 +398,7 @@ var config = {
         forceSetTimeOut: false,
         deltaHistory: 30
     },
-      scene: [ SceneA],
+      scene: [ SceneA, SceneB],
    physics: {
         default: 'arcade',
         arcade: {
